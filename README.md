@@ -22,6 +22,7 @@ FinGuard solves this by providing:
 - Demonstrated modern streaming patterns including joins, watermarking and window aggregations.
 
 ## Architecture Diagram
+
 <img width="4880" height="3280" alt="image" src="https://github.com/user-attachments/assets/83c2057b-f1ff-4a99-b40d-6a24ad0bae72" />
 Streaming transactions from Kafka (via Spark Streaming) and fraud-watchlist files (via Auto Loader), together with batch customer data from PostgreSQL (via Lakeflow Connect), flow through Bronze → Silver → Gold layers built with Lakeflow Declarative Pipelines. Everything is governed by Unity Catalog, orchestrated by Lakeflow Jobs, and consumed through dashboards and real-time email alerts.
 
@@ -44,13 +45,13 @@ Streaming transactions from Kafka (via Spark Streaming) and fraud-watchlist file
 ## Repository Structure
 finguard-fraud-detection-analytics
 |
-|README.md
+├──README.md
 ├── databricks
-│   ├── notebooks
-│   └── finguard_dab
+|    ├──notebooks
+|    ├──finguard_dab
 ├── docs
 ├── sql
-└── deployment
+├──deployment
 
 ## Data Flow
 1.  Credit card transactions are published to Kafka.
@@ -126,9 +127,11 @@ The Gold layer produces real-time fraud alerts and streaming analytics.
 Streaming alerts automatically trigger HTML email notifications using **`@append_flow`** and **`@foreach_batch_sink`**, with Gmail SMTP credentials securely stored in the Databricks Secret Scope.
 
 * **High-Value Transaction Alert:** Sent when a transaction exceeds the customer's configured limit.
+* 
   <img width="690" height="602" alt="image" src="https://github.com/user-attachments/assets/3715a334-05bc-4d22-b120-d29d2d2cf2b2" />
 
 * **Fraud Card Alert:** Sent when a transaction matches the fraud watchlist.
+* 
   <img width="1174" height="660" alt="image" src="https://github.com/user-attachments/assets/3a464798-f8bd-4ca8-8e78-4c5476f740bd" />
 
 > **Note:** Emails are delivered via Gmail SMTP and may initially appear in the Spam folder.
@@ -136,6 +139,16 @@ Streaming alerts automatically trigger HTML email notifications using **`@append
 ## Dashboard
 
 The **FinGuard Fraud Detection Monitoring** dashboard provides near-real-time insights into transaction activity, fraud alerts, and streaming metrics. Powered by the Silver and Gold layers, it refreshes every minute for continuous operational monitoring.
+
+<img width="1349" height="537" alt="image" src="https://github.com/user-attachments/assets/9a36a8b4-6dba-4afd-980d-ece56cf78017" />
+
+<img width="1299" height="471" alt="image" src="https://github.com/user-attachments/assets/1e74026d-c777-467e-b40c-ae7375a27b78" />
+
+<img width="1293" height="520" alt="image" src="https://github.com/user-attachments/assets/e94fffdd-cdad-4eee-b34c-9aac9e57d006" />
+
+<img width="1320" height="541" alt="image" src="https://github.com/user-attachments/assets/bcebba7b-3c79-419b-abfe-9ed1163828b7" />
+
+
 
 
 
