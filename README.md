@@ -48,29 +48,13 @@ finguard-fraud-detection-analytics
 1.  Credit card transactions are published to Kafka.
 2.  Spark Structured Streaming ingests transaction events using Lakeflow Spark Declarative Pipelines.
 3.  Fraud watchlist JSON files are loaded using Auto Loader into Lakeflow Spark Declarative Pipelines.
-4.  Customer master data is incrementally ingested using Lakeflow Connect from Postgres SQL.
+4.  Customer master data is incrementally ingested using Lakeflow Connect from PostgresSQL.
 5.  Bronze stores raw data with ingestion_timestamp.
 6.  Silver performs cleansing, standardization, schema validation and data quality checks.
 7.  Gold applies fraud detection logic using joins, watermarking and window aggregations.
 8.  Fraud alerts are sent through Gmail SMTP.
 9.  Dashboards refresh every minute.
 
-
-## Core Engineering Concepts
--   Event-driven streaming
--   Incremental CDC ingestion
--   Stateful and stateless processing
--   Checkpointing and fault tolerance
--   Delta Lake ACID transactions
--   Medallion Architecture
--   Data quality enforcement
--   Secure secret management
--   Workflow orchestration
--   Dashboard creation with Genie
--   GitHub Actions CI/CD for Databricks Asset Bundles
-
-##  Skills Demonstrated
-Databricks, Apache Spark, PySpark, Structured Streaming, Delta Lake, Lakeflow Connect, Lakeflow Spark Declarative Pipelines, Lakeflow Connect, Kafka, PostgreSQL, Unity Catalog, Auto Loader, CDC, SQL, Python, Window Aggregations, Streaming Joins, Data Engineering, Genie.
 
 ## Data Source
 FinGuard combines three different data sources — two streaming and one batch.
@@ -84,9 +68,4 @@ These records contain information about cards or entities flagged by internal fr
 A hosted Neon PostgreSQL database serves as the source for customer master data, containing customer profile and reference information, including transaction limits used during fraud detection.
 As this dataset changes infrequently, it is ingested into Databricks using Lakeflow Connect as a batch/incremental load, leveraging a primary key and cursor column to capture only new or updated records.
 
-## Future Enhancements
--   Monitoring and observability
--   Automated testing
 
-## Author
-This project was developed as a portfolio project demonstrating modern Data Engineering practices for real-time analytics using Databricks Lakehouse.
