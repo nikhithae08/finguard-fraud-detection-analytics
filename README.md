@@ -4,7 +4,7 @@ Enterprise Real-Time Fraud Detection Platform built using Azure Databricks, Lake
 
 ## Project Overview
 FinGuard is a real-time credit card fraud detection platform built on Databricks Lakehouse architecture.
-It processes streaming credit card transactions from Kafka, enriches them with customer and fraud reference data, detects suspicious patterns using Spark Structured Streaming, and generates real-time fraud alerts.
+It processes streaming credit card transactions from Kafka, enriches them with customer and fraud reference data, detects suspicious and high-value transactions within seconds using Spark Structured Streaming and generates automated real-time fraud alerts.
 
 ## Business Problem
 Traditional fraud detection systems rely on batch processing,causing delayed detection.
@@ -14,7 +14,7 @@ FinGuard solves this by providing:
 - instant alert generation
 - operational dashboards
 
-## Project Outcomes
+## Business Impact
 - Enabled continuous ingestion of streaming transactions.
 - Detected suspicious transactions within seconds.
 - Automated fraud notifications.
