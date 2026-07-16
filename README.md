@@ -15,7 +15,7 @@ FinGuard solves this by providing:
 
 ## Architecture Diagram
 <img width="4880" height="3280" alt="image" src="https://github.com/user-attachments/assets/83c2057b-f1ff-4a99-b40d-6a24ad0bae72" />
-
+Streaming transactions from Kafka (via Spark Streaming) and fraud-watchlist files (via Auto Loader), together with batch customer data from PostgreSQL (via Lakeflow Connect), flow through Bronze → Silver → Gold layers built with Lakeflow Declarative Pipelines. Everything is governed by Unity Catalog, orchestrated by Lakeflow Jobs, and consumed through dashboards and real-time email alerts.
 
 ## Technology Stack
 <img width="709" height="461" alt="image" src="https://github.com/user-attachments/assets/341d4b83-965c-4952-9573-22f4092320e7" />
@@ -31,6 +31,7 @@ FinGuard solves this by providing:
 -   Real-time fraud alerts using Gmail SMTP
 -   Near real-time operational dashboard
 -   Unity Catalog governance
+-   Dashboard creation using Genie
 
 ## Repository Structure
 finguard-fraud-detection-analytics/
@@ -53,7 +54,7 @@ finguard-fraud-detection-analytics/
 6.  Silver performs cleansing, standardization, schema validation and data quality checks.
 7.  Gold applies fraud detection logic using joins, watermarking and window aggregations.
 8.  Fraud alerts are sent through Gmail SMTP.
-9.  Dashboards refreshes every minute.
+9.  Dashboards refresh every minute.
 
 
 ## Core Engineering Concepts
@@ -66,10 +67,23 @@ finguard-fraud-detection-analytics/
 -   Data quality enforcement
 -   Secure secret management
 -   Workflow orchestration
+-   Dashboard creation with Genie
 -   GitHub Actions CI/CD for Databricks Asset Bundles
 
 ##  Skills Demonstrated
-Databricks, Apache Spark, PySpark, Structured Streaming, Delta Lake, Lakeflow Connect, Lakeflow Spark Declarative Pipelines, Lakeflow Connect, Kafka, PostgreSQL, Unity Catalog, Auto Loader, CDC, SQL, Python, Window Aggregations, Streaming Joins, Data Engineering.
+Databricks, Apache Spark, PySpark, Structured Streaming, Delta Lake, Lakeflow Connect, Lakeflow Spark Declarative Pipelines, Lakeflow Connect, Kafka, PostgreSQL, Unity Catalog, Auto Loader, CDC, SQL, Python, Window Aggregations, Streaming Joins, Data Engineering, Genie.
+
+## Data Source
+FinGuard combines three different data sources — two streaming and one batch.
+
+### Confluent Kafka — Live Transactions (Streaming)
+Live credit card transactions are continuously published to a Confluent Kafka topic (`credit_card_transactions`) and streamed into Databricks for real-time processing.
+### JSON Files — Fraud Watchlist (Streaming)
+A generator continuously produces JSON files and places them into a Databricks Volume, with each file representing a fraud watchlist event.
+These records contain information about cards or entities flagged by internal fraud teams or external partners (such as phishing-related card blocks). The data is ingested continuously using Auto Loader to ensure the latest watchlist updates are available for streaming pipelines.
+### Neon PostgreSQL — Customer Master Data (Batch)
+A hosted Neon PostgreSQL database serves as the source for customer master data, containing customer profile and reference information, including transaction limits used during fraud detection.
+As this dataset changes infrequently, it is ingested into Databricks using Lakeflow Connect as a batch/incremental load, leveraging a primary key and cursor column to capture only new or updated records.
 
 ## Future Enhancements
 -   Monitoring and observability
