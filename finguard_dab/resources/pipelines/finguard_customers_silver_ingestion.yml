@@ -1,0 +1,15 @@
+resources:
+  pipelines:
+    pipeline_finguard_customers_silver_ingestion:
+      name: finguard_customers_silver_ingestion
+      libraries:
+        - glob:
+            include: ../../src/finguard_dab_etl/finguard_customers_silver_ingestion/silver/**
+      schema: bronze
+      continuous: false
+      development: false
+      photon: true
+      channel: CURRENT
+      catalog: finguard
+      serverless: true
+      root_path: ../../src/finguard_dab_etl/finguard_customers_silver_ingestion

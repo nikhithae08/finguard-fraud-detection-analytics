@@ -1,0 +1,16 @@
+resources:
+  jobs:
+    Customer_ingestion_source_to_silver:
+      name: Customer_ingestion_source_to_silver
+      tasks:
+        - task_key: source_to_bronze
+          pipeline_task:
+            pipeline_id: ${resources.pipelines.pipeline_finguard_customers_ingestion.id}
+        - task_key: bronze_to_silver
+          depends_on:
+            - task_key: source_to_bronze
+          pipeline_task:
+            pipeline_id: ${resources.pipelines.pipeline_finguard_customers_silver_ingestion.id}
+      queue:
+        enabled: true
+      performance_target: PERFORMANCE_OPTIMIZED

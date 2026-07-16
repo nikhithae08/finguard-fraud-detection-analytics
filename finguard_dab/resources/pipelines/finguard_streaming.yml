@@ -1,0 +1,21 @@
+resources:
+  pipelines:
+    pipeline_finguard_streaming:
+      name: finguard_streaming
+      libraries:
+        - glob:
+            include: ../../src/finguard_dab_etl/finguard_streaming/bronze/**
+        - glob:
+            include: ../../src/finguard_dab_etl/finguard_streaming/silver/**
+        - glob:
+            include: ../../src/finguard_dab_etl/finguard_streaming/gold/**
+        - glob:
+            include: ../../src/finguard_dab_etl/finguard_streaming/alert/**
+      schema: bronze
+      continuous: false
+      development: false
+      photon: true
+      channel: CURRENT
+      catalog: finguard
+      serverless: true
+      root_path: ../../src/finguard_dab_etl/finguard_streaming

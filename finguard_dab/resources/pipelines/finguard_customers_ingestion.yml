@@ -1,0 +1,23 @@
+resources:
+  pipelines:
+    pipeline_finguard_customers_ingestion:
+      name: finguard_customers_ingestion
+      ingestion_definition:
+        connection_name: finguard_postgres
+        objects:
+          - table:
+              source_catalog: neondb
+              source_schema: public
+              source_table: customers
+              destination_catalog: finguard
+              destination_schema: bronze
+              table_configuration:
+                primary_keys:
+                  - customer_id
+                query_based_connector_config:
+                  cursor_columns:
+                    - update_timestamp
+        source_type: POSTGRESQL
+      schema: bronze
+      channel: PREVIEW
+      catalog: finguard
