@@ -34,16 +34,15 @@ Streaming transactions from Kafka (via Spark Streaming) and fraud-watchlist file
 -   Dashboard creation using Genie
 
 ## Repository Structure
-finguard-fraud-detection-analytics/
+finguard-fraud-detection-analytics
+│
 ├── README.md
-├── databricks/
-│   ├── notebooks/
-│   └── finguard_dab/
-├── docs/
-├── data/
-├── sql/
-├── deployment/
-└── .github/
+├── databricks
+│   ├── notebooks
+│   └── finguard_dab
+├── docs
+├── sql
+└── deployment
 
 ## Data Flow
 1.  Credit card transactions are published to Kafka.
@@ -76,12 +75,12 @@ Databricks, Apache Spark, PySpark, Structured Streaming, Delta Lake, Lakeflow Co
 ## Data Source
 FinGuard combines three different data sources — two streaming and one batch.
 
-### Confluent Kafka — Live Transactions (Streaming)
+#### Confluent Kafka — Live Transactions (Streaming)
 Live credit card transactions are continuously published to a Confluent Kafka topic (`credit_card_transactions`) and streamed into Databricks for real-time processing.
-### JSON Files — Fraud Watchlist (Streaming)
+#### JSON Files — Fraud Watchlist (Streaming)
 A generator continuously produces JSON files and places them into a Databricks Volume, with each file representing a fraud watchlist event.
 These records contain information about cards or entities flagged by internal fraud teams or external partners (such as phishing-related card blocks). The data is ingested continuously using Auto Loader to ensure the latest watchlist updates are available for streaming pipelines.
-### Neon PostgreSQL — Customer Master Data (Batch)
+#### Neon PostgreSQL — Customer Master Data (Batch)
 A hosted Neon PostgreSQL database serves as the source for customer master data, containing customer profile and reference information, including transaction limits used during fraud detection.
 As this dataset changes infrequently, it is ingested into Databricks using Lakeflow Connect as a batch/incremental load, leveraging a primary key and cursor column to capture only new or updated records.
 
