@@ -17,7 +17,7 @@ FinGuard solves this by providing:
 
 
 ## Technology Stack
-<img width="1536" height="1024" alt="skills used" src="https://github.com/user-attachments/assets/c2f3c1de-3b1c-4d48-85f7-5361687af700" />
+<img width="709" height="461" alt="image" src="https://github.com/user-attachments/assets/341d4b83-965c-4952-9573-22f4092320e7" />
 
 
 ## Data Flow
