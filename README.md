@@ -45,6 +45,8 @@ Streaming transactions from Kafka (via Spark Streaming) and fraud-watchlist file
 ## Repository Structure
 finguard-fraud-detection-analytics
 |
+|
+|
 ├──README.md
 ├── databricks
 |    ├──notebooks
@@ -140,12 +142,16 @@ Streaming alerts automatically trigger HTML email notifications using **`@append
 
 The **FinGuard Fraud Detection Monitoring** dashboard provides near-real-time insights into transaction activity, fraud alerts, and streaming metrics. Powered by the Silver and Gold layers, it refreshes every minute for continuous operational monitoring.
 
+* **Financial Analytics** – Provides an overview of transaction performance, customer insights, and key financial metrics.
 <img width="1349" height="537" alt="image" src="https://github.com/user-attachments/assets/9a36a8b4-6dba-4afd-980d-ece56cf78017" />
 
+* **Risk & Alert Monitoring** – Monitors fraud alerts, declined transactions, high-value transactions, and international activity in near real time.
 <img width="1299" height="471" alt="image" src="https://github.com/user-attachments/assets/1e74026d-c777-467e-b40c-ae7375a27b78" />
 
+* **Customer Risk & Behavior Analysis** – Analyzes customer segments, risk profiles, and spending behavior to identify trends.
 <img width="1293" height="520" alt="image" src="https://github.com/user-attachments/assets/e94fffdd-cdad-4eee-b34c-9aac9e57d006" />
 
+* **Transaction Patterns & Insights** – Visualizes transaction trends by type, time, location, and payment method.
 <img width="1320" height="541" alt="image" src="https://github.com/user-attachments/assets/bcebba7b-3c79-419b-abfe-9ed1163828b7" />
 
 
