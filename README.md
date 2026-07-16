@@ -14,11 +14,35 @@ FinGuard solves this by providing:
 - operational dashboards
 
 ## Architecture Diagram
+<img width="4880" height="3280" alt="image" src="https://github.com/user-attachments/assets/83c2057b-f1ff-4a99-b40d-6a24ad0bae72" />
 
 
 ## Technology Stack
 <img width="709" height="461" alt="image" src="https://github.com/user-attachments/assets/341d4b83-965c-4952-9573-22f4092320e7" />
 
+## Key Features
+-   Real-time transaction ingestion from Kafka
+-   Incremental customer ingestion from PostgreSQL using CDC
+-   Auto Loader for fraud watchlist ingestion
+-   Bronze--Silver--Gold Medallion Architecture
+-   Stream--Static and Stream--Stream joins
+-   Watermarking, tumbling and sliding window aggregations
+-   Declarative data quality expectations
+-   Real-time fraud alerts using Gmail SMTP
+-   Near real-time operational dashboard
+-   Unity Catalog governance
+
+## Repository Structure
+finguard-fraud-detection-analytics/
+├── README.md
+├── databricks/
+│   ├── notebooks/
+│   └── finguard_dab/
+├── docs/
+├── data/
+├── sql/
+├── deployment/
+└── .github/
 
 ## Data Flow
 1.  Credit card transactions are published to Kafka.
@@ -45,7 +69,7 @@ FinGuard solves this by providing:
 -   GitHub Actions CI/CD for Databricks Asset Bundles
 
 ##  Skills Demonstrated
-Databricks, Apache Spark, PySpark, Structured Streaming, Delta Lake, Lakeflow, Kafka, PostgreSQL, Unity Catalog, Auto Loader, CDC, SQL, Python, Window Aggregations, Streaming Joins, Data Engineering.
+Databricks, Apache Spark, PySpark, Structured Streaming, Delta Lake, Lakeflow Connect, Lakeflow Spark Declarative Pipelines, Lakeflow Connect, Kafka, PostgreSQL, Unity Catalog, Auto Loader, CDC, SQL, Python, Window Aggregations, Streaming Joins, Data Engineering.
 
 ## Future Enhancements
 -   Monitoring and observability
