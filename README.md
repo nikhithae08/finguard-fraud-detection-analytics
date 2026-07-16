@@ -15,11 +15,11 @@ FinGuard solves this by providing:
 - operational dashboards
 
 ## Project Outcomes
-• Enabled continuous ingestion of streaming transactions.
-• Detected suspicious transactions within seconds.
-• Automated fraud notifications.
-• Built an end-to-end Lakehouse architecture.
-• Demonstrated modern streaming patterns including joins, watermarking and window aggregations.
+- Enabled continuous ingestion of streaming transactions.
+- Detected suspicious transactions within seconds.
+- Automated fraud notifications.
+- Built an end-to-end Lakehouse architecture.
+- Demonstrated modern streaming patterns including joins, watermarking and window aggregations.
 
 ## Architecture Diagram
 <img width="4880" height="3280" alt="image" src="https://github.com/user-attachments/assets/83c2057b-f1ff-4a99-b40d-6a24ad0bae72" />
@@ -43,8 +43,8 @@ Streaming transactions from Kafka (via Spark Streaming) and fraud-watchlist file
 
 ## Repository Structure
 finguard-fraud-detection-analytics
-│
-├── README.md
+|
+|README.md
 ├── databricks
 │   ├── notebooks
 │   └── finguard_dab
