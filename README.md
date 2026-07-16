@@ -1,4 +1,5 @@
 # finguard-fraud-detection-analytics
+## Databricks | Spark Streaming | Kafka | Delta Lake | Lakeflow | Unity Catalog
 Enterprise Real-Time Fraud Detection Platform built using Azure Databricks, Lakeflow, Kafka, Delta Lake, and Unity Catalog.
 
 ## Project Overview
@@ -12,6 +13,13 @@ FinGuard solves this by providing:
 - automated fraud detection
 - instant alert generation
 - operational dashboards
+
+## Project Outcomes
+• Enabled continuous ingestion of streaming transactions.
+• Detected suspicious transactions within seconds.
+• Automated fraud notifications.
+• Built an end-to-end Lakehouse architecture.
+• Demonstrated modern streaming patterns including joins, watermarking and window aggregations.
 
 ## Architecture Diagram
 <img width="4880" height="3280" alt="image" src="https://github.com/user-attachments/assets/83c2057b-f1ff-4a99-b40d-6a24ad0bae72" />
@@ -67,5 +75,67 @@ These records contain information about cards or entities flagged by internal fr
 #### Neon PostgreSQL — Customer Master Data (Batch)
 A hosted Neon PostgreSQL database serves as the source for customer master data, containing customer profile and reference information, including transaction limits used during fraud detection.
 As this dataset changes infrequently, it is ingested into Databricks using Lakeflow Connect as a batch/incremental load, leveraging a primary key and cursor column to capture only new or updated records.
+
+## Data Pipelines
+
+The solution follows the **Medallion Architecture** within the **finguard** Unity Catalog:
+
+* **Bronze:** Raw data ingestion
+* **Silver:** Data cleaning, standardization, and validation
+* **Gold:** Business-ready datasets for fraud detection and analytics
+
+### Bronze Layer
+
+| Table                             | Source                         | Ingestion                            |
+| --------------------------------- | ------------------------------ | ------------------------------------ |
+| `finguard.bronze.transactions`    | Confluent Kafka                | Spark Structured Streaming           |
+| `finguard.bronze.fraud_watchlist` | JSON Files (Databricks Volume) | Auto Loader                          |
+| `finguard.bronze.customers`       | Neon PostgreSQL                | Lakeflow Connect (Batch/Incremental) |
+
+---
+
+### Silver Layer
+
+The Silver layer transforms Bronze data using **Lakeflow Declarative Pipelines** and applies data quality expectations.
+
+| Silver Table                      |                         Purpose                                          |
+|-----------------------------------|--------------------------------------------------------------------------|
+| `finguard.silver.transactions`    | Parse transaction JSON, standardize schema, and validate critical fields |
+| `finguard.silver.fraud_watchlist` | Standardize watchlist data and clean records                             |
+| `finguard.silver.customers`       | Standardize customer data and validate customer IDs                      |
+
+> Customer data is batch-ingested but processed as a streaming table for incremental updates.
+
+---
+
+### Gold Layer
+
+The Gold layer produces real-time fraud alerts and streaming analytics.
+
+| Gold Table                                   | Purpose                                          |
+| -------------------------------------------- | ------------------------------------------------ |
+| `high_value_transactions_alert`              | Detect transactions exceeding customer limits    |
+| `fraud_card_alert`                           | Detect transactions matching the fraud watchlist |
+| `transaction_count_by_minute`                | 1-minute tumbling window aggregation             |
+| `transaction_count_by_minute_sliding_window` | 5-minute sliding window aggregation              |
+
+---
+
+## Real-Time Email Alerts
+
+Streaming alerts automatically trigger HTML email notifications using **`@append_flow`** and **`@foreach_batch_sink`**, with Gmail SMTP credentials securely stored in the Databricks Secret Scope.
+
+* **High-Value Transaction Alert:** Sent when a transaction exceeds the customer's configured limit.
+  <img width="690" height="602" alt="image" src="https://github.com/user-attachments/assets/3715a334-05bc-4d22-b120-d29d2d2cf2b2" />
+
+* **Fraud Card Alert:** Sent when a transaction matches the fraud watchlist.
+  <img width="1174" height="660" alt="image" src="https://github.com/user-attachments/assets/3a464798-f8bd-4ca8-8e78-4c5476f740bd" />
+
+> **Note:** Emails are delivered via Gmail SMTP and may initially appear in the Spam folder.
+
+## Dashboard
+
+The **FinGuard Fraud Detection Monitoring** dashboard provides near-real-time insights into transaction activity, fraud alerts, and streaming metrics. Powered by the Silver and Gold layers, it refreshes every minute for continuous operational monitoring.
+
 
 
